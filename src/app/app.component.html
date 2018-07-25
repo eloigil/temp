@@ -1,0 +1,38 @@
+<h1>{{title}}</h1>
+
+<p>
+  <input id="show-form" type="checkbox" [(ngModel)]="showForm">
+  <label for="show-form">Show form</label>
+</p>
+
+<form [hidden]="!showForm" >
+  <div class="field">
+    <label for="name">Name</label>
+    <input id="name" type="text" [(ngModel)]="name" name="name" >
+  </div>
+  <div class="field">
+    <label for="country">Country</label>
+    <select id="country" [(ngModel)]="country" name="country">
+      <option value="">- select one - </option>
+      <option value="spain">Spain</option>
+      <option value="england">England</option>
+      <option value="portugal">Portugal</option>
+    </select>
+  </div>
+  <div [ngSwitch]="country">
+    <p *ngSwitchCase="'spain'">olé</p>
+    <p *ngSwitchCase="'portugal'">olá</p>
+    <p *ngSwitchCase="'england'">oi?</p>
+    <p *ngSwitchDefault>WTF?</p>
+  </div>
+  <button (click)="handleAddClick()">Add to list</button>
+</form>
+
+<ul>
+  <li *ngFor="let student of students, let ix = index" [ngClass]="{ 'tall': student.height > 1.80 }">
+    <h3>Name: {{student.name | crazy: 'a' | uppercase}}</h3>
+    <p>Country: {{student.country}}</p>
+    <p>Height: {{student.height | currency: currentCurrency : 'symbol' : '1.2-2'}}</p>
+    <button (click)="handleRemoveClick(ix)">remove from list</button>
+  </li>
+</ul>
