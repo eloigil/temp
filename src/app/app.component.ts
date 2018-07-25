@@ -11,7 +11,7 @@ export class AppComponent {
   name = '';
   country = '';
   currentCurrency: 'USD'
-  
+
   students = [{
     name: 'Andrea',
     country: 'Spain',
@@ -25,14 +25,16 @@ export class AppComponent {
     country: 'Venezuela',
   }];
 
-  handleAddClick() {
-    this.students.push({
-      name: this.name,
-      country: this.country
-    });
-    this.name = '';
-    this.country = '';
-    this.showForm = false;
+  handleAddClick(form) {
+    if (form.valid) {
+      this.students.push({
+        name: this.name,
+        country: this.country
+      });
+      this.name = '';
+      this.country = '';
+      this.showForm = false;
+    }
   }
 
   handleRemoveClick(index) {

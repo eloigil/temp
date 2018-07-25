@@ -5,10 +5,15 @@
   <label for="show-form">Show form</label>
 </p>
 
-<form [hidden]="!showForm" >
-  <div class="field">
+<form [hidden]="!showForm" #addStudentForm="ngForm">
+  <div class="field" [ngClass]="{'has-errors': addStudentForm.submitted && usernameField.invalid}">
     <label for="name">Name</label>
-    <input id="name" type="text" [(ngModel)]="name" name="name" >
+    <input id="name" type="text" [(ngModel)]="name" name="name" #usernameField="ngModel" required minlength="5" maxlength="10">
+    <div class="validation" *ngIf="addStudentForm.submitted && usernameField.invalid">
+      <p *ngIf="usernameField.errors.required">required!</p>
+      <p *ngIf="usernameField.errors.minlength">too short, 5 minimum!</p>
+      <p *ngIf="usernameField.errors.maxlength">too short, 10 maximum!</p>
+    </div>
   </div>
   <div class="field">
     <label for="country">Country</label>
@@ -25,14 +30,11 @@
     <p *ngSwitchCase="'england'">oi?</p>
     <p *ngSwitchDefault>WTF?</p>
   </div>
-  <button (click)="handleAddClick()">Add to list</button>
+  <button (click)="handleAddClick(addStudentForm)">Add to list</button>
 </form>
 
 <ul>
   <li *ngFor="let student of students, let ix = index" [ngClass]="{ 'tall': student.height > 1.80 }">
-    <h3>Name: {{student.name | crazy: 'a' | uppercase}}</h3>
-    <p>Country: {{student.country}}</p>
-    <p>Height: {{student.height | currency: currentCurrency : 'symbol' : '1.2-2'}}</p>
-    <button (click)="handleRemoveClick(ix)">remove from list</button>
+    <app-student-card [student]="student" (deleteClick)="handleRemoveClick(ix)"></app-student-card>
   </li>
 </ul>

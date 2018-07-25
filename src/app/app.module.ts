@@ -4,12 +4,14 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { CrazyPipe } from './pipes/crazy.pipe';
+import { StudentCardComponent } from './components/student-card/student-card.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CrazyPipe
+    CrazyPipe,
+    StudentCardComponent
   ],
   imports: [
     BrowserModule,

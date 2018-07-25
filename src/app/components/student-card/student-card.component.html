@@ -1,0 +1,4 @@
+<h3>Name: {{student.name | crazy: 'a' | uppercase}}</h3>
+<p>Country: {{student.country}}</p>
+<p>Height: {{student.height | currency: currentCurrency : 'symbol' : '1.2-2'}}</p>
+<button (click)="handleRemoveClick(ix)">remove from list</button>
